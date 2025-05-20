@@ -52,10 +52,10 @@ bool updown = false;
 
 bool update_in_progress = false;
 
-#define DEFAULT_REFRESH 300*1000
-#define RETRY_DELAY 60*1000
+#define DEFAULT_REFRESH 300 * 1000
+#define RETRY_DELAY 60 * 1000
 #define IN_RETRY_DELAY 100
-#define REQUEST_TIMEOUT 30*1000
+#define REQUEST_TIMEOUT 30 * 1000
 
 #define BLINK_INTERVAL 500
 #define BLINK_MAX 20
@@ -100,13 +100,13 @@ enum { // msg type
 
 enum { // themes
   THEME_BLACK,
-  THEME_WHITE
+  THEME
 };
 
 static uint8_t update_type = MSG_PERIODIC_UPDATE;
 
 // protos
-static void fill_layer(Layer *layer, GContext* ctx);
+static void fill_layer(Layer *layer, GContext *ctx);
 
 static void request_update();
 static void schedule_update(uint32_t delay, uint8_t type);
@@ -121,20 +121,23 @@ static void handle_shake(AccelAxisType axis, int32_t direction);
 
 static void change_info_theme(uint8_t theme);
 static void blink_info();
-static void update_info_layer(char *content, uint8_t font, uint8_t scroll_offset, bool new_updown);
+static void update_info_layer(char *content, uint8_t font,
+                              uint8_t scroll_offset, bool new_updown);
 static void change_theme(uint8_t t);
 
 static void select_click_handler(ClickRecognizerRef recognizer, void *context);
-static void select_long_click_handler(ClickRecognizerRef recognizer, void *context);
+static void select_long_click_handler(ClickRecognizerRef recognizer,
+                                      void *context);
 static void up_click_handler(ClickRecognizerRef recognizer, void *context);
 static void up_long_click_handler(ClickRecognizerRef recognizer, void *context);
 static void down_click_handler(ClickRecognizerRef recognizer, void *context);
-static void down_long_click_handler(ClickRecognizerRef recognizer, void *context);
+static void down_long_click_handler(ClickRecognizerRef recognizer,
+                                    void *context);
 static void click_config_provider(void *context);
 static void click_config_provider_updown(void *context);
 
 // fill layer used for drawing line and battery charge
-static void fill_layer(Layer *layer, GContext* ctx) {
+static void fill_layer(Layer *layer, GContext *ctx) {
   if (theme != THEME_BLACK) {
     graphics_context_set_fill_color(ctx, GColorBlack);
   } else {
@@ -262,14 +265,19 @@ static void handle_battery(BatteryChargeState charge_state) {
   }
 
   // resize battery level layer according battery charge
-  layer_set_frame(wbatt_level_layer, GRect(11, 5, charge_state.charge_percent / 10, 4));
+  layer_set_frame(wbatt_level_layer,
+                  GRect(11, 5, charge_state.charge_percent / 10, 4));
 }
 
 // handle bluetooth status changes
 static void handle_bluetooth(bool connected) {
   if (connected) {
-    bitmap_layer_set_bitmap(no_phone_icon_layer, empty_icon_bitmap); // hide update icon (layer_set_hidden function sometimes works strange)
-    schedule_update(5 * 1000, MSG_PERIODIC_UPDATE); // schedule update when connection made
+    bitmap_layer_set_bitmap(
+        no_phone_icon_layer,
+        empty_icon_bitmap); // hide update icon (layer_set_hidden function
+                            // sometimes works strange)
+    schedule_update(
+        5 * 1000, MSG_PERIODIC_UPDATE); // schedule update when connection made
   } else {
     bitmap_layer_set_bitmap(no_phone_icon_layer, no_phone_icon_bitmap);
     if (config_vibrate) {
@@ -283,48 +291,58 @@ static void handle_shake(AccelAxisType axis, int32_t direction) {
 }
 
 // update data in main layer (content, font)
-static void update_info_layer(char *content, uint8_t font, uint8_t scroll_offset, bool new_updown) {
+static void update_info_layer(char *content, uint8_t font,
+                              uint8_t scroll_offset, bool new_updown) {
   // change font
   switch (font) {
-    case 1:
-      text_layer_set_font(text_info_layer, fonts_get_system_font(FONT_KEY_GOTHIC_14));
-      break;
-    case 2:
-      text_layer_set_font(text_info_layer, fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD));
-      break;
-    case 3:
-      text_layer_set_font(text_info_layer, fonts_get_system_font(FONT_KEY_GOTHIC_18));
-      break;
-    case 4:
-      text_layer_set_font(text_info_layer, fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD));
-      break;
-    case 5:
-      text_layer_set_font(text_info_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24));
-      break;
-    case 6:
-      text_layer_set_font(text_info_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
-      break;
-    case 7:
-      text_layer_set_font(text_info_layer, fonts_get_system_font(FONT_KEY_GOTHIC_28));
-      break;
-    case 8:
-      text_layer_set_font(text_info_layer, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
-      break;
-    default:
-      break;
+  case 1:
+    text_layer_set_font(text_info_layer,
+                        fonts_get_system_font(FONT_KEY_GOTHIC_14));
+    break;
+  case 2:
+    text_layer_set_font(text_info_layer,
+                        fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD));
+    break;
+  case 3:
+    text_layer_set_font(text_info_layer,
+                        fonts_get_system_font(FONT_KEY_GOTHIC_18));
+    break;
+  case 4:
+    text_layer_set_font(text_info_layer,
+                        fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD));
+    break;
+  case 5:
+    text_layer_set_font(text_info_layer,
+                        fonts_get_system_font(FONT_KEY_GOTHIC_24));
+    break;
+  case 6:
+    text_layer_set_font(text_info_layer,
+                        fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
+    break;
+  case 7:
+    text_layer_set_font(text_info_layer,
+                        fonts_get_system_font(FONT_KEY_GOTHIC_28));
+    break;
+  case 8:
+    text_layer_set_font(text_info_layer,
+                        fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
+    break;
+  default:
+    break;
   }
 
   // change up/down buttons behavior
   if (new_updown != updown) {
     if (new_updown) {
-      scroll_layer_set_callbacks(scroll_layer, (ScrollLayerCallbacks) {
-        .click_config_provider = &click_config_provider_updown
-      });
+      scroll_layer_set_callbacks(
+          scroll_layer,
+          (ScrollLayerCallbacks){.click_config_provider =
+                                     &click_config_provider_updown});
       scroll_layer_set_click_config_onto_window(scroll_layer, window);
     } else {
-      scroll_layer_set_callbacks(scroll_layer, (ScrollLayerCallbacks) {
-        .click_config_provider = &click_config_provider
-      });
+      scroll_layer_set_callbacks(
+          scroll_layer, (ScrollLayerCallbacks){.click_config_provider =
+                                                   &click_config_provider});
       scroll_layer_set_click_config_onto_window(scroll_layer, window);
     }
     updown = new_updown;
@@ -339,7 +357,8 @@ static void update_info_layer(char *content, uint8_t font, uint8_t scroll_offset
     max_size.h += 4;
   }
   text_layer_set_size(text_info_layer, max_size); // resize layer
-  scroll_layer_set_content_size(scroll_layer, GSize(144, max_size.h)); // resize scroll layer
+  scroll_layer_set_content_size(scroll_layer,
+                                GSize(144, max_size.h)); // resize scroll layer
 
   if (scroll_offset != DONT_SCROLL) {
     GPoint offset;
@@ -347,19 +366,20 @@ static void update_info_layer(char *content, uint8_t font, uint8_t scroll_offset
 
     offset.y = -(int)((float)max_size.h / 100.0 * scroll_offset);
 
-    scroll_layer_set_content_offset(scroll_layer, offset, true); // scroll to beginning with animation
+    scroll_layer_set_content_offset(scroll_layer, offset,
+                                    true); // scroll to beginning with animation
   }
 }
 
 // change theme (black/white), do things only when theme realy changed
 static void change_theme(uint8_t t) {
-  if ((t == THEME_BLACK || t == THEME_WHITE) && (t != theme)) {
+  if ((t == THEME_BLACK || t == THEME) && (t != theme)) {
     theme = t;
 
-    uint8_t bg = GColorBlack;
-    uint8_t fg = GColorWhite;
+    GColor bg = GColorBlack;
+    GColor fg = GColorWhite;
 
-    if (theme == THEME_WHITE) {
+    if (theme == THEME) {
       bg = GColorWhite;
       fg = GColorBlack;
     }
@@ -382,59 +402,35 @@ static void change_theme(uint8_t t) {
     gbitmap_destroy(update_error_icon_bitmap);
     gbitmap_destroy(empty_icon_bitmap);
 
-
     for (int i = 0; i < 16; i++)
       gbitmap_destroy(digits_bitmap[i]);
 
-    if (theme == THEME_BLACK) {
-      wbatt_icon_bitmap = gbitmap_create_with_resource(RESOURCE_ID_WBATT_WHITE);
-      wbatt_charge_icon_bitmap = gbitmap_create_with_resource(RESOURCE_ID_WBATT_CHARGE_WHITE);
-      no_phone_icon_bitmap = gbitmap_create_with_resource(RESOURCE_ID_NO_PHONE_WHITE);
-      update_icon_bitmap = gbitmap_create_with_resource(RESOURCE_ID_UPDATE_WHITE);
-      update_error_icon_bitmap = gbitmap_create_with_resource(RESOURCE_ID_UPDATE_ERROR_WHITE);
-      empty_icon_bitmap = gbitmap_create_with_resource(RESOURCE_ID_EMPTY_WHITE);
+    wbatt_icon_bitmap = gbitmap_create_with_resource(RESOURCE_ID_WBATT);
+    wbatt_charge_icon_bitmap =
+        gbitmap_create_with_resource(RESOURCE_ID_WBATT_CHARGE);
+    no_phone_icon_bitmap = gbitmap_create_with_resource(RESOURCE_ID_NO_PHONE);
+    update_icon_bitmap = gbitmap_create_with_resource(RESOURCE_ID_UPDATE);
+    update_error_icon_bitmap =
+        gbitmap_create_with_resource(RESOURCE_ID_UPDATE_ERROR);
+    empty_icon_bitmap = gbitmap_create_with_resource(RESOURCE_ID_EMPTY);
 
-      digits_bitmap[0] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_0_WHITE);
-      digits_bitmap[1] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_1_WHITE);
-      digits_bitmap[2] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_2_WHITE);
-      digits_bitmap[3] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_3_WHITE);
-      digits_bitmap[4] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_4_WHITE);
-      digits_bitmap[5] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_5_WHITE);
-      digits_bitmap[6] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_6_WHITE);
-      digits_bitmap[7] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_7_WHITE);
-      digits_bitmap[8] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_8_WHITE);
-      digits_bitmap[9] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_9_WHITE);
-      digits_bitmap[10] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_DOTS_WHITE);
-      digits_bitmap[11] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_DOTS_SPACE_WHITE);
-      digits_bitmap[12] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_0AM_WHITE);
-      digits_bitmap[13] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_0PM_WHITE);
-      digits_bitmap[14] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_1AM_WHITE);
-      digits_bitmap[15] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_1PM_WHITE);
-    } else {
-      wbatt_icon_bitmap = gbitmap_create_with_resource(RESOURCE_ID_WBATT_BLACK);
-      wbatt_charge_icon_bitmap = gbitmap_create_with_resource(RESOURCE_ID_WBATT_CHARGE_BLACK);
-      no_phone_icon_bitmap = gbitmap_create_with_resource(RESOURCE_ID_NO_PHONE_BLACK);
-      update_icon_bitmap = gbitmap_create_with_resource(RESOURCE_ID_UPDATE_BLACK);
-      update_error_icon_bitmap = gbitmap_create_with_resource(RESOURCE_ID_UPDATE_ERROR_BLACK);
-      empty_icon_bitmap = gbitmap_create_with_resource(RESOURCE_ID_EMPTY_BLACK);
-
-      digits_bitmap[0] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_0_BLACK);
-      digits_bitmap[1] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_1_BLACK);
-      digits_bitmap[2] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_2_BLACK);
-      digits_bitmap[3] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_3_BLACK);
-      digits_bitmap[4] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_4_BLACK);
-      digits_bitmap[5] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_5_BLACK);
-      digits_bitmap[6] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_6_BLACK);
-      digits_bitmap[7] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_7_BLACK);
-      digits_bitmap[8] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_8_BLACK);
-      digits_bitmap[9] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_9_BLACK);
-      digits_bitmap[10] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_DOTS_BLACK);
-      digits_bitmap[11] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_DOTS_SPACE_BLACK);
-      digits_bitmap[12] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_0AM_BLACK);
-      digits_bitmap[13] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_0PM_BLACK);
-      digits_bitmap[14] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_1AM_BLACK);
-      digits_bitmap[15] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_1PM_BLACK);
-    }
+    digits_bitmap[0] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_0);
+    digits_bitmap[1] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_1);
+    digits_bitmap[2] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_2);
+    digits_bitmap[3] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_3);
+    digits_bitmap[4] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_4);
+    digits_bitmap[5] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_5);
+    digits_bitmap[6] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_6);
+    digits_bitmap[7] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_7);
+    digits_bitmap[8] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_8);
+    digits_bitmap[9] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_9);
+    digits_bitmap[10] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_DOTS);
+    digits_bitmap[11] =
+        gbitmap_create_with_resource(RESOURCE_ID_DIGIT_DOTS_SPACE);
+    digits_bitmap[12] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_0AM);
+    digits_bitmap[13] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_0PM);
+    digits_bitmap[14] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_1AM);
+    digits_bitmap[15] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_1PM);
 
     handle_timer_tick(NULL, MINUTE_UNIT); // update time
 
@@ -447,13 +443,13 @@ static void change_theme(uint8_t t) {
 
 // change only info layer theme (for blinking)
 static void change_info_theme(uint8_t theme) {
-    if (theme == THEME_BLACK) {
-      text_layer_set_background_color(text_info_layer, GColorBlack);
-      text_layer_set_text_color(text_info_layer, GColorWhite);
-    } else {
-      text_layer_set_background_color(text_info_layer, GColorWhite);
-      text_layer_set_text_color(text_info_layer, GColorBlack);
-    }
+  if (theme == THEME_BLACK) {
+    text_layer_set_background_color(text_info_layer, GColorBlack);
+    text_layer_set_text_color(text_info_layer, GColorWhite);
+  } else {
+    text_layer_set_background_color(text_info_layer, GColorWhite);
+    text_layer_set_text_color(text_info_layer, GColorBlack);
+  }
 }
 
 // blink info theme
@@ -474,11 +470,12 @@ static void blink_info() {
 }
 
 // useful in the future probably
-void out_sent_handler(DictionaryIterator *sent, void *context) {
-}
+void out_sent_handler(DictionaryIterator *sent, void *context) {}
 
-// reschedule update if request_update sending failed, also set update_error icon
-void out_failed_handler(DictionaryIterator *failed, AppMessageResult reason, void *context) {
+// reschedule update if request_update sending failed, also set update_error
+// icon
+void out_failed_handler(DictionaryIterator *failed, AppMessageResult reason,
+                        void *context) {
   bitmap_layer_set_bitmap(update_icon_layer, update_error_icon_bitmap);
   update_in_progress = false;
   schedule_update(RETRY_DELAY, update_type);
@@ -496,7 +493,7 @@ void in_received_handler(DictionaryIterator *received, void *context) {
   // update main layer with received content and font
   Tuple *msg_type_tuple = dict_find(received, KEY_MSG_TYPE);
   if (msg_type_tuple) {
-    if(msg_type_tuple->value->uint8 == MSG_CONFIG) {
+    if (msg_type_tuple->value->uint8 == MSG_CONFIG) {
       Tuple *config_vibrate_tuple = dict_find(received, KEY_CONFIG_VIBRATE);
       if (config_vibrate_tuple) {
         if (strcmp(config_vibrate_tuple->value->cstring, "true") == 0) {
@@ -545,12 +542,16 @@ void in_received_handler(DictionaryIterator *received, void *context) {
       schedule_update(RETRY_DELAY, update_type);
 
     } else if (msg_type_tuple->value->uint8 == MSG_JSON_RESPONSE) {
-      bitmap_layer_set_bitmap(update_icon_layer, empty_icon_bitmap); // hide update icon (layer_set_hidden function sometimes works strange)
+      bitmap_layer_set_bitmap(
+          update_icon_layer,
+          empty_icon_bitmap); // hide update icon (layer_set_hidden function
+                              // sometimes works strange)
       update_in_progress = false;
 
       Tuple *content_tuple = dict_find(received, KEY_CONTENT);
       if (content_tuple) {
-        memcpy(content, content_tuple->value->cstring, strlen(content_tuple->value->cstring) + 1);
+        memcpy(content, content_tuple->value->cstring,
+               strlen(content_tuple->value->cstring) + 1);
 
         Tuple *scroll_offset_tuple = dict_find(received, KEY_SCROLL);
         uint8_t scroll_offset = DONT_SCROLL;
@@ -578,18 +579,18 @@ void in_received_handler(DictionaryIterator *received, void *context) {
       // maybe need to vibrate?
       Tuple *vibrate = dict_find(received, KEY_VIBRATE);
       if (vibrate) {
-        switch(vibrate->value->uint8) {
-          case 1:
-            vibes_short_pulse();
-            break;
-          case 2:
-            vibes_double_pulse();
-            break;
-          case 3:
-            vibes_long_pulse();
-            break;
-          default:
-            break;
+        switch (vibrate->value->uint8) {
+        case 1:
+          vibes_short_pulse();
+          break;
+        case 2:
+          vibes_double_pulse();
+          break;
+        case 3:
+          vibes_long_pulse();
+          break;
+        default:
+          break;
         }
       }
 
@@ -644,7 +645,8 @@ static void up_click_handler(ClickRecognizerRef recognizer, void *context) {
 }
 
 // force update on up long click
-static void up_long_click_handler(ClickRecognizerRef recognizer, void *context) {
+static void up_long_click_handler(ClickRecognizerRef recognizer,
+                                  void *context) {
   if (blink_count > 0) { // if blinking - stop it!
     blink_count = 0;
     blink_info();
@@ -666,7 +668,8 @@ static void down_click_handler(ClickRecognizerRef recognizer, void *context) {
 }
 
 // force update on down long click
-static void down_long_click_handler(ClickRecognizerRef recognizer, void *context) {
+static void down_long_click_handler(ClickRecognizerRef recognizer,
+                                    void *context) {
   if (blink_count > 0) { // if blinking - stop it!
     blink_count = 0;
     blink_info();
@@ -688,7 +691,8 @@ static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
 }
 
 // force update on select long click
-static void select_long_click_handler(ClickRecognizerRef recognizer, void *context) {
+static void select_long_click_handler(ClickRecognizerRef recognizer,
+                                      void *context) {
   if (blink_count > 0) { // if blinking - stop it!
     blink_count = 0;
     blink_info();
@@ -701,13 +705,15 @@ static void select_long_click_handler(ClickRecognizerRef recognizer, void *conte
 // handle select button clicks
 static void click_config_provider(void *context) {
   window_single_click_subscribe(BUTTON_ID_SELECT, select_click_handler);
-  window_long_click_subscribe(BUTTON_ID_SELECT, 0, select_long_click_handler, NULL);
+  window_long_click_subscribe(BUTTON_ID_SELECT, 0, select_long_click_handler,
+                              NULL);
 }
 
 // handle select/up/down buttons clicks
 static void click_config_provider_updown(void *context) {
   window_single_click_subscribe(BUTTON_ID_SELECT, select_click_handler);
-  window_long_click_subscribe(BUTTON_ID_SELECT, 0, select_long_click_handler, NULL);
+  window_long_click_subscribe(BUTTON_ID_SELECT, 0, select_long_click_handler,
+                              NULL);
   window_single_click_subscribe(BUTTON_ID_UP, up_click_handler);
   window_long_click_subscribe(BUTTON_ID_UP, 0, up_long_click_handler, NULL);
   window_single_click_subscribe(BUTTON_ID_DOWN, down_click_handler);
@@ -738,7 +744,8 @@ static void window_load(Window *window) {
   // date layer
   text_date_layer = text_layer_create(GRect(0, 13, 142, 14));
   text_layer_set_background_color(text_date_layer, GColorClear);
-  text_layer_set_font(text_date_layer, fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD));
+  text_layer_set_font(text_date_layer,
+                      fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD));
   layer_add_child(window_layer, text_layer_get_layer(text_date_layer));
 
   // watch batt icon layer
@@ -752,12 +759,18 @@ static void window_load(Window *window) {
 
   // no phone icon layer
   no_phone_icon_layer = bitmap_layer_create(GRect(33, 2, 10, 10));
-  bitmap_layer_set_bitmap(no_phone_icon_layer, empty_icon_bitmap); // hide update icon (layer_set_hidden function sometimes works strange)
+  bitmap_layer_set_bitmap(
+      no_phone_icon_layer,
+      empty_icon_bitmap); // hide update icon (layer_set_hidden function
+                          // sometimes works strange)
   layer_add_child(window_layer, bitmap_layer_get_layer(no_phone_icon_layer));
 
   // update icon layer
   update_icon_layer = bitmap_layer_create(GRect(44, 2, 10, 10));
-  bitmap_layer_set_bitmap(update_icon_layer, empty_icon_bitmap); // hide update icon (layer_set_hidden function sometimes works strange)
+  bitmap_layer_set_bitmap(
+      update_icon_layer,
+      empty_icon_bitmap); // hide update icon (layer_set_hidden function
+                          // sometimes works strange)
   layer_add_child(window_layer, bitmap_layer_get_layer(update_icon_layer));
 
   // line layer
@@ -767,14 +780,14 @@ static void window_load(Window *window) {
   layer_add_child(window_layer, line_layer);
 
   // main info layer
-  scroll_layer = scroll_layer_create(GRect(0, 31, 145, 168-31));
+  scroll_layer = scroll_layer_create(GRect(0, 31, 145, 168 - 31));
   scroll_layer_set_click_config_onto_window(scroll_layer, window);
-  scroll_layer_set_callbacks(scroll_layer, (ScrollLayerCallbacks) {
-    .click_config_provider = &click_config_provider
-  });
+  scroll_layer_set_callbacks(
+      scroll_layer,
+      (ScrollLayerCallbacks){.click_config_provider = &click_config_provider});
 
   text_info_layer = text_layer_create(GRect(0, 0, 145, 2000));
-  //text_layer_set_background_color(text_info_layer, GColorClear);
+  // text_layer_set_background_color(text_info_layer, GColorClear);
 
   scroll_layer_add_child(scroll_layer, text_layer_get_layer(text_info_layer));
   layer_add_child(window_layer, scroll_layer_get_layer(scroll_layer));
@@ -831,11 +844,8 @@ static void window_unload(Window *window) {
 
 static void init(void) {
   window = window_create();
-  window_set_fullscreen(window, true);
-  window_set_window_handlers(window, (WindowHandlers) {
-    .load = window_load,
-    .unload = window_unload
-  });
+  window_set_window_handlers(
+      window, (WindowHandlers){.load = window_load, .unload = window_unload});
 
   // prepare AppMessage
   app_message_register_inbox_received(in_received_handler);
@@ -851,9 +861,7 @@ static void init(void) {
   window_stack_push(window, false);
 }
 
-static void deinit(void) {
-  window_destroy(window);
-}
+static void deinit(void) { window_destroy(window); }
 
 int main(void) {
   init();

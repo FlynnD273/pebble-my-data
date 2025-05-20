@@ -1,148 +1,145 @@
 {
-  "uuid": "9be6e663-b542-49f3-82d9-9bc174ddc63a",
-  "shortName": "My Data",
-  "longName": "My Data",
-  "companyName": "bahbka",
-  "versionCode": 235,
-  "versionLabel": "2.3.5",
-  "watchapp": {
-    "watchface": false
-  },
-  "capabilities": [ "configurable", "location" ],
-  "appKeys": {
-    "msg_type":         0,
-    "content":          1,
-    "refresh":          2,
-    "vibrate":          3,
-    "font":             4,
-    "theme":            5,
-    "scroll":           6,
-    "light":            7,
-    "blink":            8,
-    "updown":           9,
-    "config_location": 10,
-    "config_vibrate":  11,
-    "config_seconds":  12,
-    "config_shake":    13
-  },
-  "resources": {
-    "media": [
-      {
-      	"type": "png",
-	"name": "ICON",
-	"file": "app_icon.png",
-	"menuIcon": true
-      },
-      {
-      	"type": "png-trans",
-	"name": "WBATT",
-	"file": "wbatt.png"
-      },
-      {
-      	"type": "png-trans",
-	"name": "WBATT_CHARGE",
-	"file": "wbatt_charge.png"
-      },
-      {
-      	"type": "png-trans",
-	"name": "NO_PHONE",
-	"file": "no_phone.png"
-      },
-      {
-      	"type": "png-trans",
-	"name": "UPDATE",
-	"file": "update.png"
-      },
-      {
-      	"type": "png-trans",
-	"name": "UPDATE_ERROR",
-	"file": "update_error.png"
-      },
-      {
-      	"type": "png-trans",
-	"name": "EMPTY",
-	"file": "empty.png"
-      },
-      {
-      	"type": "png-trans",
-	"name": "DIGIT_0",
-	"file": "digit_0.png"
-      },
-      {
-      	"type": "png-trans",
-	"name": "DIGIT_1",
-	"file": "digit_1.png"
-      },
-      {
-      	"type": "png-trans",
-	"name": "DIGIT_2",
-	"file": "digit_2.png"
-      },
-      {
-      	"type": "png-trans",
-	"name": "DIGIT_3",
-	"file": "digit_3.png"
-      },
-      {
-      	"type": "png-trans",
-	"name": "DIGIT_4",
-	"file": "digit_4.png"
-      },
-      {
-      	"type": "png-trans",
-	"name": "DIGIT_5",
-	"file": "digit_5.png"
-      },
-      {
-      	"type": "png-trans",
-	"name": "DIGIT_6",
-	"file": "digit_6.png"
-      },
-      {
-      	"type": "png-trans",
-	"name": "DIGIT_7",
-	"file": "digit_7.png"
-      },
-      {
-      	"type": "png-trans",
-	"name": "DIGIT_8",
-	"file": "digit_8.png"
-      },
-      {
-      	"type": "png-trans",
-	"name": "DIGIT_9",
-	"file": "digit_9.png"
-      },
-      {
-      	"type": "png-trans",
-	"name": "DIGIT_DOTS",
-	"file": "digit_dots.png"
-      },
-      {
-      	"type": "png-trans",
-	"name": "DIGIT_DOTS_SPACE",
-	"file": "digit_dots_space.png"
-      },
-      {
-      	"type": "png-trans",
-	"name": "DIGIT_0AM",
-	"file": "digit_0am.png"
-      },
-      {
-      	"type": "png-trans",
-	"name": "DIGIT_0PM",
-	"file": "digit_0pm.png"
-      },
-      {
-      	"type": "png-trans",
-	"name": "DIGIT_1AM",
-	"file": "digit_1am.png"
-      },
-      {
-      	"type": "png-trans",
-	"name": "DIGIT_1PM",
-	"file": "digit_1pm.png"
-      }
-    ]
-  }
+	"uuid": "9be6e663-b542-49f3-82d9-9bc174ddc63a",
+	"shortName": "My Data",
+	"longName": "My Data",
+	"companyName": "bahbka",
+	"sdkVersion": "3",
+	"versionLabel": "2.3",
+	"watchapp": {
+		"watchface": false
+	},
+	"capabilities": [
+		"configurable",
+		"location"
+	],
+	"appKeys": {
+		"msg_type": 0,
+		"content": 1,
+		"refresh": 2,
+		"vibrate": 3,
+		"font": 4,
+		"theme": 5,
+		"scroll": 6,
+		"light": 7,
+		"blink": 8,
+		"updown": 9,
+		"config_location": 10,
+		"config_vibrate": 11,
+		"config_seconds": 12,
+		"config_shake": 13
+	},
+	"resources": {
+		"media": [
+			{
+				"type": "png",
+				"name": "WBATT",
+				"file": "wbatt.png"
+			},
+			{
+				"type": "png",
+				"name": "WBATT_CHARGE",
+				"file": "wbatt_charge.png"
+			},
+			{
+				"type": "png",
+				"name": "NO_PHONE",
+				"file": "no_phone.png"
+			},
+			{
+				"type": "png",
+				"name": "UPDATE",
+				"file": "update.png"
+			},
+			{
+				"type": "png",
+				"name": "UPDATE_ERROR",
+				"file": "update_error.png"
+			},
+			{
+				"type": "png",
+				"name": "EMPTY",
+				"file": "empty.png"
+			},
+			{
+				"type": "png",
+				"name": "DIGIT_0",
+				"file": "digit_0.png"
+			},
+			{
+				"type": "png",
+				"name": "DIGIT_1",
+				"file": "digit_1.png"
+			},
+			{
+				"type": "png",
+				"name": "DIGIT_2",
+				"file": "digit_2.png"
+			},
+			{
+				"type": "png",
+				"name": "DIGIT_3",
+				"file": "digit_3.png"
+			},
+			{
+				"type": "png",
+				"name": "DIGIT_4",
+				"file": "digit_4.png"
+			},
+			{
+				"type": "png",
+				"name": "DIGIT_5",
+				"file": "digit_5.png"
+			},
+			{
+				"type": "png",
+				"name": "DIGIT_6",
+				"file": "digit_6.png"
+			},
+			{
+				"type": "png",
+				"name": "DIGIT_7",
+				"file": "digit_7.png"
+			},
+			{
+				"type": "png",
+				"name": "DIGIT_8",
+				"file": "digit_8.png"
+			},
+			{
+				"type": "png",
+				"name": "DIGIT_9",
+				"file": "digit_9.png"
+			},
+			{
+				"type": "png",
+				"name": "DIGIT_DOTS",
+				"file": "digit_dots.png"
+			},
+			{
+				"type": "png",
+				"name": "DIGIT_DOTS_SPACE",
+				"file": "digit_dots_space.png"
+			},
+			{
+				"type": "png",
+				"name": "DIGIT_0AM",
+				"file": "digit_0am.png"
+			},
+			{
+				"type": "png",
+				"name": "DIGIT_0PM",
+				"file": "digit_0pm.png"
+			},
+			{
+				"type": "png",
+				"name": "DIGIT_1AM",
+				"file": "digit_1am.png"
+			},
+			{
+				"type": "png",
+				"name": "DIGIT_1PM",
+				"file": "digit_1pm.png"
+			}
+		]
+	}
 }

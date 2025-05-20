@@ -1,0 +1,12 @@
+[
+	{
+		"directory": "/home/flynn/Downloads/pebble-my-data/",
+		"arguments": [
+			"gcc",
+			"-I/home/flynn/Documents/git-misc/rebbletool/sdk/SDKs/4.3/sdk-core/pebble/basalt/include/",
+			"-Ibuild/include/",
+			"-Ibuild/basalt/"
+		],
+		"file": "*.*"
+	}
+]
